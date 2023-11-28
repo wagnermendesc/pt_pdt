@@ -1,0 +1,9 @@
+eleicoes <- "c:/Users/wagne/OneDrive/Área de Trabalho/svm/boletim_ce.csv"
+municipios <- read.csv(eleicoes, sep = ";")
+
+disputas <- municipios %>%
+  select(NM_VOTAVEL, DS_CARGO_PERGUNTA, SG_PARTIDO, NM_MUNICIPIO) %>%
+  group_by(NM_VOTAVEL, DS_CARGO_PERGUNTA, SG_PARTIDO, NM_MUNICIPIO) %>%
+  filter(DS_CARGO_PERGUNTA == "Prefeito" & (SG_PARTIDO == "PT" | SG_PARTIDO == "PDT")) %>%
+  arrange(NM_MUNICIPIO) %>%
+  distinct(NM_VOTAVEL, .keep_all = TRUE)
